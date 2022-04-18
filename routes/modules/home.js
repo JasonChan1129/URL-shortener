@@ -15,11 +15,13 @@ router.post('/url', (req, res) => {
 		.lean()
 		.then(data => {
 			if (data.length) {
-				randomCode = data.randomCode;
-				console.log(randomCode);
+				randomCode = data[0].randomCode;
+				res.render('index', { data: { URL: url, randomCode } });
 			} else {
 				randomCode = createRandomCode();
-				URL.create({ URL: url, randomCode });
+				URL.create({ URL: url, randomCode }).then(() =>
+					res.render('index', { data: { URL: url, randomCode } })
+				);
 			}
 		});
 	// find corresponding randomCode in mongoDB

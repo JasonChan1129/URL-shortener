@@ -1,18 +1,30 @@
 <div class='container'>
 	<div class='row justify-content-center'>
-		<form
-			class='col-12 col-md-6 d-flex flex-column align-items-center'
-			action='/url'
-			method='POST'
-		>
-			<input
-				type='url'
-				class='form-control bg-light mt-5 mb-3'
-				placeholder='Input URL here'
-				name='url'
-				required
-			/>
-			<button type='submit' class='btn btn-outline-primary w-50'>Shorten</button>
-		</form>
+		{{#if data}}
+			<div class='d-flex flex-column justify-content-center align-items-center mt-5'>
+				<h2>Success! Please use this link:</h2>
+				<a
+					class='mb-3 text-decoration-none'
+					href='{{data.URL}}'
+				>http://localhost:3000/{{data.randomCode}}</a>
+				<button type='button' class='btn btn-primary'>Copy</button>
+			</div>
+		{{else}}
+			<form
+				class='col-12 col-md-6 d-flex flex-column align-items-center'
+				action='/url'
+				method='POST'
+			>
+				<input
+					type='url'
+					class='form-control bg-light mt-5 mb-3'
+					placeholder='Input URL here'
+					name='url'
+					required
+				/>
+				<button type='submit' class='btn btn-outline-primary w-50'>Shorten</button>
+			</form>
+		{{/if}}
+
 	</div>
 </div>
