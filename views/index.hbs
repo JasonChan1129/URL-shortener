@@ -1,1 +1,18 @@
-<p>hello world</p>
+<div class='container'>
+	<div class='row justify-content-center'>
+		<form
+			class='col-12 col-md-6 d-flex flex-column align-items-center'
+			action='/url'
+			method='POST'
+		>
+			<input
+				type='url'
+				class='form-control bg-light mt-5 mb-3'
+				placeholder='Input URL here'
+				name='url'
+				required
+			/>
+			<button type='submit' class='btn btn-outline-primary w-50'>Shorten</button>
+		</form>
+	</div>
+</div>
