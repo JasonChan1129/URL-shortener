@@ -13,7 +13,7 @@ router.post('/', (req, res) => {
 			if (data) {
 				res.render('index', { data });
 			} else {
-				const randomCode = createRandomCode();
+				const randomCode = createRandomCode(5);
 				URL.create({ URL: url, randomCode })
 					.then(() => res.render('index', { data: { URL: url, randomCode } }))
 					.catch(error => console.log(error));

@@ -1,4 +1,4 @@
-function createRandomCode() {
+function createRandomCode(randomCodeLength) {
 	const upperCase = [
 		'A',
 		'B',
@@ -32,7 +32,6 @@ function createRandomCode() {
 	const collections = [...upperCase, ...lowerCase, ...number];
 	const collectionsLength = collections.length;
 	let randomCode = '';
-	const randomCodeLength = 5;
 	for (let i = 0; i < randomCodeLength; i++) {
 		const randomIndex = Math.floor(Math.random() * collectionsLength);
 		randomCode += collections[randomIndex];
