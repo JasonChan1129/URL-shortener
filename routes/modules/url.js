@@ -8,11 +8,11 @@ const router = express.Router();
 router.post('/', (req, res) => {
 	const url = req.body.url;
 	let randomCode = '';
-	URL.find({ URL: url })
+	URL.findOne({ URL: url })
 		.lean()
 		.then(data => {
 			if (data.length) {
-				randomCode = data[0].randomCode;
+				randomCode = data.randomCode;
 				res.render('index', { data: { URL: url, randomCode } });
 			} else {
 				randomCode = createRandomCode();
