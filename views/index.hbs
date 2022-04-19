@@ -4,10 +4,17 @@
 			<div class='d-flex flex-column justify-content-center align-items-center mt-5'>
 				<h2>Success! Please use this link:</h2>
 				<a
-					class='mb-3 text-decoration-none'
+					class='mb-3 text-decoration-none url'
 					href='{{data.URL}}'
 				>http://localhost:3000/{{data.randomCode}}</a>
-				<button type='button' class='btn btn-primary'>Copy</button>
+
+				<button
+					type='button'
+					class='btn btn-primary copy'
+					data-bs-toggle='tooltip'
+					data-bs-placement='bottom'
+					title='Copy URL to clipboard'
+				>Copy</button>
 			</div>
 		{{else}}
 			<form
