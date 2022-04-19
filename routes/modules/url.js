@@ -5,21 +5,31 @@ const createRandomCode = require('../../createRandomCode');
 
 const router = express.Router();
 
-router.post('/', (req, res) => {
-	const url = req.body.url;
-	URL.findOne({ URL: url })
-		.lean()
-		.then(data => {
-			if (data) {
-				res.render('index', { data });
-			} else {
-				const randomCode = createRandomCode(5);
-				URL.create({ URL: url, randomCode })
-					.then(() => res.render('index', { data: { URL: url, randomCode } }))
-					.catch(error => console.log(error));
-			}
-		})
-		.catch(error => console.log(error));
+// handle post a url
+router.post('/', async (req, res) => {
+	try {
+		const url = req.body.url;
+		let exists;
+		let randomCode;
+		// find if the corresponding url already exists in database
+		const data = await URL.findOne({ URL: url }).lean();
+		// if exists, get the data and pass it to view templete
+		// if not yet exists, create a new shorten url and store it back to the database
+		if (data) {
+			return res.render('index', { data });
+		} else {
+			// make sure the new shorten url does not repeat
+			do {
+				randomCode = createRandomCode(5);
+				// return a document if at least one document matches the given params, otherwise return null
+				exists = await URL.exists({ randomCode });
+			} while (exists);
+			await URL.create({ URL: url, randomCode });
+			return res.render('index', { data: { URL: url, randomCode } });
+		}
+	} catch (err) {
+		console.log(err);
+	}
 });
 
 module.exports = router;
