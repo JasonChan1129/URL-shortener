@@ -9,6 +9,8 @@ const router = express.Router();
 router.post('/', async (req, res) => {
 	try {
 		const url = req.body.url;
+		const origin = req.headers.origin;
+		console.log(origin);
 		let exists;
 		let randomCode;
 		// find if the corresponding url already exists in database
@@ -16,7 +18,7 @@ router.post('/', async (req, res) => {
 		// if exists, get the data and pass it to view templete
 		// if not yet exists, create a new shorten url and store it back to the database
 		if (data) {
-			return res.render('index', { data });
+			return res.render('index', { data: { ...data, origin } });
 		} else {
 			// make sure the new shorten url does not repeat
 			do {
@@ -25,7 +27,7 @@ router.post('/', async (req, res) => {
 				exists = await URL.exists({ randomCode });
 			} while (exists);
 			await URL.create({ URL: url, randomCode });
-			return res.render('index', { data: { URL: url, randomCode } });
+			return res.render('index', { data: { URL: url, randomCode, origin } });
 		}
 	} catch (err) {
 		console.log(err);
