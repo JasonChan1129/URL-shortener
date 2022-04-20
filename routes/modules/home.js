@@ -15,6 +15,7 @@ router.get('/:randomCode', (req, res) => {
 	URL.findOne({ randomCode: randomCode })
 		.lean()
 		.then(data => {
+			// if data exists, redirect to the original url; else print error message
 			data
 				? res.redirect(data.URL)
 				: res.render('index', {
