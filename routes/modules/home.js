@@ -14,7 +14,13 @@ router.get('/:randomCode', (req, res) => {
 	const { randomCode } = req.params;
 	URL.findOne({ randomCode: randomCode })
 		.lean()
-		.then(data => res.redirect(data.URL))
+		.then(data => {
+			data
+				? res.redirect(data.URL)
+				: res.render('index', {
+						message: { error: 'Sorry, your entered url does not exist.' },
+				  });
+		})
 		.catch(error => console.log(error));
 });
 

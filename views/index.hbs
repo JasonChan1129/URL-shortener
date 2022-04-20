@@ -17,6 +17,11 @@
 				>Copy</button>
 				<a href='/' class='btn btn-secondary mt-3'>Back</a>
 			</div>
+		{{else if message}}
+			<div class='d-flex flex-column justify-content-center align-items-center mt-5'>
+				<h2>{{message.error}}</h2>
+				<a href='/' class='btn btn-secondary mt-3'>Back</a>
+			</div>
 		{{else}}
 			<form
 				class='col-12 col-md-6 d-flex flex-column align-items-center'
